@@ -11,6 +11,12 @@ module.exports = class extends Generator {
     },
     {
       type: 'confirm',
+      name: 'hasReactMethods',
+      message: 'Would you like us to include the React lifecycle methods?',
+      default: false
+    },
+    {
+      type: 'confirm',
       name: 'hasRedux',
       message: 'Would you like to include the redux functions in your container?',
       default: false
@@ -23,17 +29,17 @@ module.exports = class extends Generator {
   }
 
   writing() {
-    const { componentName, hasRedux } = this.props;
+    const { componentName, hasReactMethods, hasRedux } = this.props;
     this.fs.copyTpl(
       this.templatePath('component.js'),
       this.destinationPath(`components/${componentName}/component.js`),
-      {componentName}
+      {componentName,hasReactMethods}
     );
 
     this.fs.copyTpl(
       this.templatePath('container.js'),
       this.destinationPath(`components/${componentName}/container.js`),
-      {componentName, hasRedux}
+      {componentName, hasReactMethods, hasRedux}
     );
 
     this.fs.copyTpl(
