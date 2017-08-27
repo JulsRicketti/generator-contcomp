@@ -7,7 +7,7 @@ module.exports = class extends Generator {
     const prompts = [{
       type: 'input',
       name: 'componentName',
-      message: 'What is the name of your component?',
+      message: 'What is the name of your component?'
     }];
 
     return this.prompt(prompts).then(props => {
@@ -16,23 +16,23 @@ module.exports = class extends Generator {
   }
 
   writing() {
-    const {componentName} = this.props
+    const {componentName} = this.props;
     this.fs.copyTpl(
       this.templatePath('component.js'),
       this.destinationPath(`components/${componentName}/component.js`),
-      { componentName }
-    )
+      {componentName}
+    );
 
     this.fs.copyTpl(
       this.templatePath('container.js'),
       this.destinationPath(`components/${componentName}/container.js`),
-      { componentName }
-    )
+      {componentName}
+    );
 
     this.fs.copyTpl(
       this.templatePath('index.js'),
       this.destinationPath(`components/${componentName}/index.js`),
-      { componentName }
-    )
+      {componentName}
+    );
   }
 };

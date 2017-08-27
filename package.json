@@ -13,7 +13,9 @@
   ],
   "main": "generators/index.js",
   "keywords": [
-    "",
+    "reactjs",
+    "container-component",
+    "redux",
     "yeoman-generator"
   ],
   "devDependencies": {

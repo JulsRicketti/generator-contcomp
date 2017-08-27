@@ -1,11 +1,11 @@
-import * as React from 'react'
+import * as React from 'react';
 
 export default class SomeComponent extends React.Component {
-  render () {
+  render() {
     return (
       <div>
         Insert your component's content here
       </div>
-    )
+    );
   }
 }

@@ -1,2 +1,2 @@
-import SomeContainer from './container'
-export default SomeContainer
+import SomeContainer from './container';
+export default SomeContainer;
