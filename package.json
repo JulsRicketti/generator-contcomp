@@ -1,6 +1,6 @@
 {
   "name": "generator-contcomp",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "A simple container-component pattern generator for ReactJS components",
   "homepage": "",
   "author": {
@@ -30,8 +30,7 @@
   },
   "dependencies": {
     "yeoman-generator": "^1.0.0",
-    "chalk": "^1.1.3",
-    "yosay": "^2.0.0"
+    "chalk": "^1.1.3"
   },
   "jest": {
     "testEnvironment": "node"

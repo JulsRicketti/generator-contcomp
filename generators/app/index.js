@@ -1,6 +1,5 @@
-'use strict';
-const Generator = require('yeoman-generator');
-const chalk = require('chalk');
+const Generator = require('yeoman-generator')
+const chalk = require('chalk')
 
 module.exports = class extends Generator {
   prompting() {
@@ -13,39 +12,40 @@ module.exports = class extends Generator {
       type: 'confirm',
       name: 'hasReactMethods',
       message: 'Would you like us to include the React lifecycle methods?',
-      default: false
+      default: true
     },
     {
       type: 'confirm',
       name: 'hasRedux',
       message: 'Would you like to include the redux functions in your container?',
-      default: false
+      default: true
     }
-  ];
+  ]
 
     return this.prompt(prompts).then(props => {
-      this.props = props;
-    });
+      this.props = props
+    })
   }
 
   writing() {
-    const { componentName, hasReactMethods, hasRedux } = this.props;
+    const { componentName, hasReactMethods, hasRedux } = this.props
+
     this.fs.copyTpl(
       this.templatePath('component.js'),
       this.destinationPath(`components/${componentName}/component.js`),
       {componentName,hasReactMethods}
-    );
+    )
 
     this.fs.copyTpl(
       this.templatePath('container.js'),
       this.destinationPath(`components/${componentName}/container.js`),
       {componentName, hasReactMethods, hasRedux}
-    );
+    )
 
     this.fs.copyTpl(
       this.templatePath('index.js'),
       this.destinationPath(`components/${componentName}/index.js`),
       {componentName}
-    );
+    )
   }
-};
+}
