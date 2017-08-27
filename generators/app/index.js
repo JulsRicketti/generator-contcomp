@@ -8,7 +8,14 @@ module.exports = class extends Generator {
       type: 'input',
       name: 'componentName',
       message: 'What is the name of your component?'
-    }];
+    },
+    {
+      type: 'confirm',
+      name: 'hasRedux',
+      message: 'Would you like to include the redux functions in your container?',
+      default: false
+    }
+  ];
 
     return this.prompt(prompts).then(props => {
       this.props = props;
@@ -16,7 +23,7 @@ module.exports = class extends Generator {
   }
 
   writing() {
-    const {componentName} = this.props;
+    const { componentName, hasRedux } = this.props;
     this.fs.copyTpl(
       this.templatePath('component.js'),
       this.destinationPath(`components/${componentName}/component.js`),
@@ -26,7 +33,7 @@ module.exports = class extends Generator {
     this.fs.copyTpl(
       this.templatePath('container.js'),
       this.destinationPath(`components/${componentName}/container.js`),
-      {componentName}
+      {componentName, hasRedux}
     );
 
     this.fs.copyTpl(
