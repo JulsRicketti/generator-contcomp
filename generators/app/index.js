@@ -28,22 +28,24 @@ module.exports = class extends Generator {
 
   writing() {
     const {componentName, hasReactMethods, hasRedux} = this.props;
+    const jsSystem = this.config.get('jsSystem')
+    const destinationPath = this.config.get('destinationPath')
 
     this.fs.copyTpl(
-      this.templatePath('component.js'),
-      this.destinationPath(`components/${componentName}/component.js`),
+      this.templatePath(`${jsSystem}/component.js`),
+      this.destinationPath(`${destinationPath}/${componentName}/component.js`),
       {componentName, hasReactMethods}
     );
 
     this.fs.copyTpl(
-      this.templatePath('container.js'),
-      this.destinationPath(`components/${componentName}/container.js`),
+      this.templatePath(`${jsSystem}/container.js`),
+      this.destinationPath(`${destinationPath}/${componentName}/container.js`),
       {componentName, hasReactMethods, hasRedux}
     );
 
     this.fs.copyTpl(
-      this.templatePath('index.js'),
-      this.destinationPath(`components/${componentName}/index.js`),
+      this.templatePath(`${jsSystem}/index.js`),
+      this.destinationPath(`${destinationPath}/${componentName}/index.js`),
       {componentName}
     );
   }

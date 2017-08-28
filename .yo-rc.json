@@ -5,5 +5,9 @@
       "authorEmail": "julsricketti@gmail.com",
       "authorUrl": ""
     }
+  },
+  "generator-contcomp": {
+    "jsSystem": "typescript",
+    "destinationPath": "components/"
   }
 }
