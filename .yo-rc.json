@@ -7,11 +7,7 @@
     }
   },
   "generator-contcomp": {
-    "jsSystem": "typescript",
-    "destinationPath": "components",
-    "includeIndex": true,
-    "skip-index": false,
-    "add-react-methods": false,
-    "add-redux": false
+    "jsSystem": "CommonJS",
+    "destinationPath": "components/blah"
   }
 }

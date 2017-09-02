@@ -9,17 +9,16 @@ module.exports = class extends Generator {
     this.argument('destination-path', { 
       type: String,
       required: false,
-      description: 'Changes your generated files destination path.',
+      description: `Changes your generated files destination path. Current destination path: ${this.config.get('destinationPath')}`,
       value: '/components'
     })
     this.argument('js-system', {
       type: String,
       required: false,
-      description: 'Choose the type of JavaScript you would like your generated. Available options: ES6, TypeScript and CommonJS.',
+      description: `Choose the type of JavaScript you would like your generated. Available options: ES6, TypeScript and CommonJS. Current JS System: ${this.config.get('jsSystem')}`,
       value: 'TypeScript'
     })
 
-    // options (which are basically the flags)
     this.option('skip-index', { 
       description: 'Will not generate an index.js file. Just the Component and Container.',
       default: false
@@ -48,8 +47,22 @@ module.exports = class extends Generator {
 
   writing() {
     const {componentName} = this.props
-    const jsSystem = this.config.get('jsSystem')
-    const destinationPath = this.config.get('destinationPath')
+    const availableJS = [ 'typescript', 'commonjs', 'es6' ]
+    if (this.options['js-system']) {
+      if (availableJS.indexOf(this.options['js-system'].toLowerCase()) !== -1) {
+        this.config.set('jsSystem', this.options['js-system'])
+      } else {
+        this.log ('ERROR! Unavailable JS system. Please choose one of the following: ES6, TypeScript, CommonJS')
+        this.log (`Current one: ${this.config.get('jsSystem')}`)
+        return
+      }
+    }
+
+    if (this.options['destination-path']){
+      this.config.set('destinationPath', this.options['destination-path'])
+    }
+    let jsSystem = this.config.get('jsSystem').toLowerCase()
+    let destinationPath = this.config.get('destinationPath').toLowerCase()
 
     const hasReactMethods = this.options['add-react-methods']
     const hasRedux = this.options['add-redux']

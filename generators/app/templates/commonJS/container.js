@@ -63,3 +63,7 @@ class <%= componentName%>Container extends React.Component {
   }
 
 module.exports = connect(mapStateToProps, mapDispatchToProps)(<%= componentName%>Container)
+<% } %>
+<% if (!hasRedux) {%>
+  module.exports = <%= componentName%>Container
+<% } %>
