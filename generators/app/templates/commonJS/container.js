@@ -62,4 +62,4 @@ class <%= componentName%>Container extends React.Component {
     }
   }
 
-module.exports = <%= componentName%>Container
+module.exports = connect(mapStateToProps, mapDispatchToProps)(<%= componentName%>Container)

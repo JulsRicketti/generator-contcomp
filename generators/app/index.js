@@ -20,9 +20,18 @@ module.exports = class extends Generator {
     })
 
     // options (which are basically the flags)
-    this.option('skip-index', { description: 'Will not generate an index.js file. Just the Component and Container.' })
-    this.option('add-react-methods', { description: 'Will generate React\'s lifecycle methods.' } )
-    this.option('add-redux', { description: 'Will generate Redux methods in the container.' })
+    this.option('skip-index', { 
+      description: 'Will not generate an index.js file. Just the Component and Container.',
+      default: false
+    })
+    this.option('add-react-methods', {
+      description: 'Will generate React\'s lifecycle methods.',
+      default: false
+    })
+    this.option('add-redux', {
+      description: 'Will generate Redux methods in the container.',
+      default: false
+    })
   }
 
   prompting() {
@@ -30,20 +39,7 @@ module.exports = class extends Generator {
       type: 'input',
       name: 'componentName',
       message: 'What is the name of your component?'
-    },
-    {
-      type: 'confirm',
-      name: 'hasReactMethods',
-      message: 'Would you like us to include the React lifecycle methods?',
-      default: true
-    },
-    {
-      type: 'confirm',
-      name: 'hasRedux',
-      message: 'Would you like to include the redux functions in your container?',
-      default: true
-    }
-    ]
+    }]
 
     return this.prompt(prompts).then(props => {
       this.props = props
@@ -51,24 +47,26 @@ module.exports = class extends Generator {
   }
 
   writing() {
-    const {componentName, hasReactMethods, hasRedux} = this.props
+    const {componentName} = this.props
     const jsSystem = this.config.get('jsSystem')
     const destinationPath = this.config.get('destinationPath')
 
-    console.log('skip-index:', this.config.get('skip-index'))
+    const hasReactMethods = this.options['add-react-methods']
+    const hasRedux = this.options['add-redux']
+
     this.fs.copyTpl(
       this.templatePath(`${jsSystem}/component.js`),
       this.destinationPath(`${destinationPath}/${componentName}/component.js`),
       {componentName, hasReactMethods}
     )
-
+    
     this.fs.copyTpl(
       this.templatePath(`${jsSystem}/container.js`),
       this.destinationPath(`${destinationPath}/${componentName}/container.js`),
       {componentName, hasReactMethods, hasRedux}
     )
 
-    if (this.config.get('includeIndex')) {
+    if (!this.options['skip-index']) {
       this.fs.copyTpl(
         this.templatePath(`${jsSystem}/index.js`),
         this.destinationPath(`${destinationPath}/${componentName}/index.js`),
