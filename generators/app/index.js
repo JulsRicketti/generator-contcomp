@@ -6,11 +6,23 @@ module.exports = class extends Generator {
     super(args, opts)
 
     // for setting up the configs:
-    this.argument('destination-path', { type: String, required: false })
-    this.argument('js-system', { type: String, required: false })
+    this.argument('destination-path', { 
+      type: String,
+      required: false,
+      description: 'Changes your generated files destination path.',
+      value: '/components'
+    })
+    this.argument('js-system', {
+      type: String,
+      required: false,
+      description: 'Choose the type of JavaScript you would like your generated. Available options: ES6, TypeScript and CommonJS.',
+      value: 'TypeScript'
+    })
 
     // options (which are basically the flags)
-    this.option('include-index')
+    this.option('skip-index', { description: 'Will not generate an index.js file. Just the Component and Container.' })
+    this.option('add-react-methods', { description: 'Will generate React\'s lifecycle methods.' } )
+    this.option('add-redux', { description: 'Will generate Redux methods in the container.' })
   }
 
   prompting() {
@@ -43,7 +55,7 @@ module.exports = class extends Generator {
     const jsSystem = this.config.get('jsSystem')
     const destinationPath = this.config.get('destinationPath')
 
-    console.log('jsSystem:', jsSystem)
+    console.log('skip-index:', this.config.get('skip-index'))
     this.fs.copyTpl(
       this.templatePath(`${jsSystem}/component.js`),
       this.destinationPath(`${destinationPath}/${componentName}/component.js`),
