@@ -8,6 +8,7 @@
   },
   "generator-contcomp": {
     "jsSystem": "typescript",
-    "destinationPath": "components/"
+    "destinationPath": "components",
+    "includeIndex": true
   }
 }
