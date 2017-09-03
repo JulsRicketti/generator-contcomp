@@ -45,7 +45,7 @@ export default class <%= componentName%>Component extends React.Component {
   componentWillUnmount () {
     /**Is invoked immediately before a component is unmounted and destroyed. */
   }<% } %>
-  
+
   render () {
     return (
       <div>

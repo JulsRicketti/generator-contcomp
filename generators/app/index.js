@@ -53,10 +53,6 @@ module.exports = class extends Generator {
     })
   }
 
-  handleJSSystem (option) {
-    // TODO?
-  }
-
   writing() {
     const {componentName} = this.props
     const availableJS = [ 'typescript', 'commonjs', 'es6' ]
