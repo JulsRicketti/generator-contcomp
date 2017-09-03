@@ -19,8 +19,8 @@ module.exports = class extends Generator {
       value: 'TypeScript'
     })
 
-    this.option('pure-component', {
-      description: 'Will generate a pure component.',
+    this.option('stateless-component', {
+      description: 'Will generate a stateless component.',
       default: false
     })
     this.option('skip-proptypes', {
@@ -79,9 +79,11 @@ module.exports = class extends Generator {
     const hasReactMethods = this.options['add-react-methods']
     const hasRedux = this.options['add-redux']
     const skipPropTypes = this.options['skip-proptypes']
+    const useStatelessComponent = this.options['stateless-component']
 
+    const component = useStatelessComponent ? 'stateless-component.js' : 'component.js'
     this.fs.copyTpl(
-      this.templatePath(`${jsSystem}/component.js`),
+      this.templatePath(`${jsSystem}/${component}`),
       this.destinationPath(`${destinationPath}/${componentName}/component.js`),
       { componentName, hasReactMethods, skipPropTypes }
     )
