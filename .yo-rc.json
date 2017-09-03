@@ -7,7 +7,7 @@
     }
   },
   "generator-contcomp": {
-    "jsSystem": "CommonJS",
-    "destinationPath": "components/blah"
+    "js-system": "typescript",
+    "destination-path": "components/blah"
   }
 }

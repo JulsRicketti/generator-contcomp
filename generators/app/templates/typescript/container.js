@@ -1,9 +1,13 @@
 import * as React from 'react'
+<% if(!skipPropTypes) {%>import * as PropTypes from 'prop-types'<% } %>
 import <%= componentName%>Component from './component'
-<% if (hasRedux) { %>
-import { connect } from 'react-redux'
-<% }%>
+<% if (hasRedux) { %>import { connect } from 'react-redux' <% }%>
+
 <% if (!hasRedux) { %>export default<% }%> class <%= componentName%>Container extends React.Component {
+<% if(!skipPropTypes) {%>
+  static propTypes = {
+    /** propName: PropTypes.[type].[isRequired?] */
+  }<% } %>
 <% if(hasReactMethods) {%>
   constructor (props) {
     super(props)
@@ -42,8 +46,8 @@ import { connect } from 'react-redux'
 
   componentWillUnmount () {
     /**Is invoked immediately before a component is unmounted and destroyed. */
-  }
-<% } %>
+  }<% } %>
+
   render () {
     return (
       <<%= componentName%>Component />

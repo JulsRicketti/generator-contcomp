@@ -1,6 +1,11 @@
 import React from 'react'
+<% if(!skipPropTypes) {%>import PropTypes from 'prop-types'<% } %>
 
 export default class <%= componentName%>Component extends React.Component {
+<% if(!skipPropTypes) {%>
+  static propTypes = {
+    /** propName: PropTypes.[type].[isRequired?] */
+  }<% } %>
 <% if(hasReactMethods) {%>
   constructor (props) {
     super(props)
@@ -39,8 +44,8 @@ export default class <%= componentName%>Component extends React.Component {
 
   componentWillUnmount () {
     /**Is invoked immediately before a component is unmounted and destroyed. */
-  }
-<% } %>
+  }<% } %>
+
   render () {
     return (
       <div>
