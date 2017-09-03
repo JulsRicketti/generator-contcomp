@@ -1,4 +1,4 @@
-# generator-contcomp [![NPM version][npm-image]][npm-url](https://www.npmjs.com/package/generator-contcomp)] [![Build Status][travis-image]][travis-url] [![Dependency Status][daviddm-image]][daviddm-url] [![Coverage percentage][coveralls-image]][coveralls-url]
+# generator-contcomp [![NPM version][npm-image]][npm-url][![Build Status][travis-image]][travis-url] [![Dependency Status][daviddm-image]][daviddm-url] [![Coverage percentage][coveralls-image]][coveralls-url]
 > A simple container-component pattern generator for ReactJS components.
 
 ## Installation
