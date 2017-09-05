@@ -5,18 +5,19 @@ module.exports = class extends Generator {
   constructor(args, opts) {
     super(args, opts);
 
-    this.argument('destination-path', {
-      type: String,
-      required: false,
-      description: `Changes your generated files destination path. \nCurrent destination path: ${this.config.get('destination-path')}. \n${chalk.bold.red('Note: your new destination path will be saved.')}`,
-      value: '/components'
-    });
-    this.argument('js-system', {
-      type: String,
-      required: false,
-      description: `Choose the type of JavaScript module system you would like your generated. \nCurrent JS System: ${this.config.get('js-system')}.\n${chalk.blue('Available options: ES6, TypeScript and CommonJS')}. \n${chalk.bold.red('Note: your new JavaScript module system will be saved.')}`,
-      value: 'TypeScript'
-    });
+    // using arguments has been put on hold for now since we cant store and access them globally
+    // this.argument('destination-path', {
+    //   type: String,
+    //   required: false,
+    //   description: `Changes your generated files destination path. \nCurrent destination path: ${this.config.get('destination-path')}. \n${chalk.bold.red('Note: your new destination path will be saved.')}`,
+    //   value: '/components'
+    // });
+    // this.argument('js-system', {
+    //   type: String,
+    //   required: false,
+    //   description: `Choose the type of JavaScript module system you would like your generated. \nCurrent JS System: ${this.config.get('js-system')}.\n${chalk.blue('Available options: ES6, TypeScript and CommonJS')}. \n${chalk.bold.red('Note: your new JavaScript module system will be saved.')}`,
+    //   value: 'TypeScript'
+    // });
 
     this.option('stateless-component', {
       description: 'Will generate a stateless component.',
@@ -45,6 +46,21 @@ module.exports = class extends Generator {
       type: 'input',
       name: 'componentName',
       message: 'What is the name of your component?'
+    },
+    {
+      type: 'input',
+      name: 'destinationPath',
+      message: 'What is the path where the generated components will go?',
+      default: 'components',
+      store: true
+    },
+    {
+      type: 'list',
+      name: 'jsSystem',
+      message: 'What JavaScript module system would you like to use?',
+      choices: ['ES6', 'TypeScript', 'CommonJS'],
+      default: 'ES6',
+      store: true
     }];
 
     return this.prompt(prompts).then(props => {
@@ -53,23 +69,25 @@ module.exports = class extends Generator {
   }
 
   writing() {
-    const {componentName} = this.props;
-    const availableJS = ['typescript', 'commonjs', 'es6'];
-    if (this.options['js-system']) {
-      if (availableJS.indexOf(this.options['js-system'].toLowerCase()) !== -1) {
-        this.config.set('js-system', this.options['js-system']);
-      } else {
-        this.log('ERROR! Unavailable JS system. Please choose one of the following: ES6, TypeScript, CommonJS');
-        this.log(`Current one: ${this.config.get('js-system')}`);
-        return;
-      }
-    }
+    console.log('props:', this.props)
+    const {componentName, destinationPath, jsSystem} = this.props;
+    // this is the stuff related to passing through arguments, which has been put on hold for now
+    // const availableJS = ['typescript', 'commonjs', 'es6'];
+    // if (this.options['js-system']) {
+    //   if (availableJS.indexOf(this.options['js-system'].toLowerCase()) !== -1) {
+    //     this.config.set('js-system', this.options['js-system']);
+    //   } else {
+    //     this.log('ERROR! Unavailable JS system. Please choose one of the following: ES6, TypeScript, CommonJS');
+    //     this.log(`Current one: ${this.config.get('js-system')}`);
+    //     return;
+    //   }
+    // }
 
-    if (this.options['destination-path']) {
-      this.config.set('destination-path', this.options['destination-path']);
-    }
-    let jsSystem = this.config.get('js-system').toLowerCase();
-    let destinationPath = this.config.get('destination-path').toLowerCase();
+    // if (this.options['destination-path']) {
+    //   this.config.set('destination-path', this.options['destination-path']);
+    // }
+    // let jsSystem = this.config.get('js-system').toLowerCase();
+    // let destinationPath = this.config.get('destination-path').toLowerCase();
 
     const hasReactMethods = this.options['add-react-methods'];
     const hasRedux = this.options['add-redux'];

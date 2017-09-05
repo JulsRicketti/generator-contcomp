@@ -8,6 +8,12 @@
   },
   "generator-contcomp": {
     "js-system": "es6",
-    "destination-path": "components/"
+    "destination-path": "components/",
+    "promptValues": {
+      "componentName": "Blah",
+      "componentPath": "component",
+      "jsSystem": "TypeScript",
+      "destinationPath": "potatoes"
+    }
   }
 }
