@@ -25,6 +25,10 @@ module.exports = class extends Generator {
       description: 'Will generate Redux methods in the container.',
       default: false
     });
+    this.option('install-dependencies', {
+      description: 'Will install the dependencies.',
+      default: false
+    })
   }
 
   prompting() {
@@ -85,6 +89,11 @@ module.exports = class extends Generator {
   }
 
   Install() {
-    this.installDependencies()
+    const installDependencies = this.options['install-dependencies']
+
+    if(installDependencies) {
+      this.installDependencies()
+    }
+    
   }
 };
